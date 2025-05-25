@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro" />
+  <link rel="stylesheet" href="/css/home.css" />
+  <title>IWAdmin</title>
+</head>
+
+<body>
+  <%- include('partials/nav') %>
+  <%- include('partials/popmsg') %>
+
+  <% if (userPermissions.includes("support-chat")) { %>
+
+    <div class="container">
+      <h1>Manage Blog</h1>
+  
+      <form action="/create-blog" method="POST" class="blog-form">
+        <input type="text" name="title" placeholder="Title" required />
+        <input type="text" name="snippet" placeholder="Snippet" required />
+        <textarea name="content" placeholder="Content" required></textarea>
+        <input type="text" name="imageUrl" placeholder="Image URL (optional)" />
+        <button type="submit">Save Blog</button>
+      </form>
+  
+      <% if (blog) { %>
+        <div class="blog-preview">
+          <h2><%= blog.title %></h2>
+          <p><strong>Snippet:</strong> <%= blog.snippet %></p>
+          <p><%= blog.content %></p>
+          <% if (blog.imageUrl) { %>
+            <img src="<%= blog.imageUrl %>" alt="Blog Image" />
+          <% } %>
+          <p class="date">Posted on <%= blog.createdAt.toDateString() %></p>
+        </div>
+      <% } else { %>
+        <p>No blog found.</p>
+      <% } %>
+    </div>
+   
+  <% } %>
+    
+    
+  <script src="/js/home.js"></script>
+</body>
+</html>

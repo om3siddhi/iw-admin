@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro"
+  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/revenue.css" />
+  <link rel="icon" type="image/png" href="/images/iw5.png" />
+  <title>IWAdmin</title>
+  
+</head>
+<body>
+  <%- include('partials/popmsg') %> <%- include('partials/nav') %>
+  <h1>Revenue Dashboard </h1>
+  
+  <div>
+    <a href="/revenue/export/total" class="btn-success">📄 Download Total Report</a>
+    <a href="/revenue/export/monthly" class="btn-primary">📆 Download Monthly Report</a>
+  </div>
+
+  <div class="total-box">
+    <h2>Total Revenue: ₹<%= totalRevenue %></h2>
+  </div>
+
+  <div class="grid">
+    <% for(let plan in revenueData) { %>
+      <div class="card">
+        <h3><%= plan %></h3>
+        <p><strong>Price:</strong> ₹<%= revenueData[plan].price %></p>
+        <p><strong>Sold:</strong> <%= revenueData[plan].count %> times</p>
+        <p><strong>Total:</strong> ₹<%= revenueData[plan].total %></p>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

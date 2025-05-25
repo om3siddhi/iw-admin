@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("partials/header") %>
+  <link rel="stylesheet" href="/css/check-kyc.css">
+  <title>Check KYC Status</title>
+</head>
+<body>
+  <%- include("partials/nav") %>
+  <%- include('partials/popmsg') %>
+  <div class="container">
+    <form action="/kyc/status" method="post" class="kyc-form">
+      <h2>🔍 Check KYC Status</h2>
+      <input type="number" name="phone" id="phoneInput" placeholder="Enter phone number" required />
+      <button type="submit">Check</button>
+    </form>
+
+    <% if (kycData) { %>
+      <div class="result-box">
+        <h3>User Info</h3>
+        <p><strong>Name:</strong> <a href="/user/<%= kycData.user._id %>"><%= kycData.user.fullname %></a></p>
+        <p><strong>Email:</strong> <%= kycData.user.email %></p>
+        <p><strong>Phone:</strong> <%= kycData.user.phone %></p>
+        <p><strong>KYC Status:</strong> <%= kycData.approval ? '✅ Approved' : '⏳ Pending' %></p>
+        <img src="<%= kycData.imageUrl %>" alt="Aadhaar Image" class="kyc-image"/>
+
+        <form action="/kyc/delete/<%= kycData._id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this KYC?');">
+          <button class="delete-btn">❌ Delete KYC</button>
+        </form>
+      </div>
+    <% } %>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+  </div>
+</body>
+</html>
