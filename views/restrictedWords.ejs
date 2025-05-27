@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro" />
+  <link rel="stylesheet" href="/css/restrictedWords.css" />
+  <title>IWAdmin</title>
+</head>
+
+<body>
+  <%- include('partials/nav') %>
+  <%- include('partials/popmsg') %>
+
+  <% if (userPermissions.includes("support-chat")) { %>
+    <div class="container">
+      <h1>Restricted Words</h1>
+  
+      <form
+        action="/restricted-words/add"
+        method="POST"
+      >
+        <input
+        class="wordin"
+          type="text"
+          name="word"
+          placeholder="Enter restricted word"
+          required
+        />
+        <button
+          type="submit"
+          class="wordbtn"
+        >
+          Add
+        </button>
+      </form>
+  
+      <% if (words.length === 0) { %>
+      <p>No restricted words.</p>
+      <% } else { %>
+      
+        <div class="word-container">
+          <% words.forEach(word => { %>
+            <div class="word-box">
+              <span><%= word.word %></span>
+              <form action="/restricted-words/delete/<%= word._id %>" method="POST" onsubmit="return confirm('Delete this word?');">
+                <button
+                  type="submit"
+                >
+                  X
+                </button>
+              </form>
+            </div>
+              
+            
+            <% }) %>
+        </div>
+        
+      <% } %>
+    </div>
+    
+   
+  <% } %>
+    
+    
+  <script src="/js/home.js"></script>
+</body>
+</html>
