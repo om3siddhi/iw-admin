@@ -1,0 +1,68 @@
+.container{
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+.container form:nth-child(1){
+  width: 280px;
+  height: 100px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.wordin{
+  outline: none;
+  padding-left: 20px;
+  width: 200px;
+  height: 40px;
+}
+.wordbtn{
+  width: 50px;
+  height: 40px;
+  color: #fff;
+  background-color: green;
+  border: none;
+}
+.word-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: auto;
+  padding: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.word-container .word-box{
+  width: 150px;
+  height: 30px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: pink;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.word-container .word-box button{
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+.word-container .word-box button:hover{
+  transition: 0.3s;
+  background-color: red;
+  color: #fff;
+}
