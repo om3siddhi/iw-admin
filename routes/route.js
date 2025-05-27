@@ -344,6 +344,42 @@ router.get('/kyc-details', async (req, res) => {
 });
 
 
+router.get('/restricted-words', async (req, res) => {
+
+  const userPermissions = getPermissions(req.user.admin);
+  try {
+    const words = await RestrictedWord.find().sort({ word: 1 });
+    res.render('restrictedWords', { words, userPermissions });
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
+});
+
+router.post('/restricted-words/add', async (req, res) => {
+  const { word } = req.body;
+  if (!word) return res.redirect('/restricted-words');
+
+  try {
+    await RestrictedWord.findOneAndUpdate(
+      { word: word.trim() },
+      { word: word.trim() },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+    res.redirect('/restricted-words');
+  } catch (err) {
+    res.status(500).send('Error adding word');
+  }
+});
+
+router.post('/restricted-words/delete/:id', async (req, res) => {
+  try {
+    await RestrictedWord.findByIdAndDelete(req.params.id);
+    res.redirect('/restricted-words');
+  } catch (err) {
+    res.status(500).send('Error deleting word');
+  }
+});
+
 
 router.post('/kyc/status', async (req, res) => {
   const { phone } = req.body;
